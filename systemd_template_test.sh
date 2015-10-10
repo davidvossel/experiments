@@ -90,7 +90,7 @@ END
 chmod 755 /usr/sbin/dummy_daemon
 
 # Make as many copies of our templated service as we want
-# copies are defined as <prefix>@<instance>.service
+# copies are defined as a symlink to the template <prefix>@<instance>.service
 for (( c=1; c <= $count; c++ ))
 do
 	ln -s /usr/lib/systemd/system/dummy_daemon.service /usr/lib/systemd/system/dummy_daemon@${c}.service
@@ -98,7 +98,7 @@ done
 systemctl daemon-reload
 
 # now we can start an individual instance of the template
-# Example: start instances 1 and 2
+# Example: start multiple instances of the template using symlinks
 # systemctl start dummy_daemon@1.service
 # systemctl start dummy_daemon@2.service
 
